@@ -4,17 +4,11 @@ Code generator for Swift.
 
 ## Installation
 
-### Homebrew
-
-```bash
-brew install edudo-inc/formulae/spmgen
-```
-
 ### Makefile
 
 ```bash
 # Download repo
-git clone https://github.com/edudo-inc/spmgen.git
+git clone https://github.com/capturecontext/spmgen.git
 
 # Navigate to repo directory
 cd spmgen
@@ -42,17 +36,21 @@ Supported resources:
 
 ### Integration
 
-Add SPMGen dependency to your package
+Add [PackageResources](https://github.com/capturecontext/swift-package-resources) dependency to your package
 
 ```swift
-.package(url: "https://github.com/edudo-inc/spmgen.git", from: "1.0.1")
+.package(
+  name: "swift-package-resources",
+  url: "https://github.com/capturecontext/swift-package-resources.git", 
+  .upToNextMajor(from: "1.0.0")
+)
 ```
 
-Create `<#Project#>Resources` target with a following structure
+Create `Resources` target with a following structure
 
 ```plaintext
 Sources
-  <#Project#>Resources
+  Resources
     Resources
       <#Assets#>
 ```
@@ -61,11 +59,11 @@ Specify resource processing and add SPMResources dependency to your target
 
 ```swift
 .target(
-  name: "<#Project#>Resources",
+  name: "Resources",
   dependencies: [
     .product(
-      name: "SPMResources",
-      package: "spmgen"
+      name: "PackageResources",
+      package: "swift-package-resources"
     )
   ],
   resources: [
@@ -77,13 +75,13 @@ Specify resource processing and add SPMResources dependency to your target
 Add a script to your `Run Script` target build phases
 
 ```bash
-spmgen resources "$SRCROOT/Sources/<#Project#>Resources/Resources" \
-  --output "$SRCROOT/Sources/<#Project#>Resources/SPMGen.swift" \
+spmgen resources "$SRCROOT/Sources/Resources/Resources" \
+  --output "$SRCROOT/Sources/Resources/Resources.generated.swift" \
   --indentor " " \
   --indentation-width 2
 
 # You can also add `--disable-exports` flag to disable `@_exported` attribute
-# for `import SPMResources` declaration in generated file
+# for `import PackageResources` declaration in generated file
 ```
 
 Add `<#Project#>Resources` target as a dependency to other targets
@@ -92,7 +90,7 @@ Add `<#Project#>Resources` target as a dependency to other targets
 .target(
   name: "<#Project#>Module",
   dependencies: [
-    .target(name: "<#Project#>Resources")
+    .target(name: "Resources")
   ]
 )
 ```
@@ -102,7 +100,7 @@ Add `<#Project#>Resources` target as a dependency to other targets
 Import your `<#Project#>Resources` package and initialize objects using `.resource()` static factory
 
 ```swift
-import <#Project#>Resources
+import Resources
 import UIKit
 
 let label = UILabel()
@@ -122,17 +120,3 @@ let imageView = UIImageView(image: .resource(.logo))
 > - Add a static factories for your custom fonts (_[Example](https://gist.github.com/maximkrouk/5bcccc5db12f0347676be5a776c309a8)_)
 > - Register custom fonts on app launch (_in AppDelegate, for example_) 
 >   - `UIFont.bootstrap()` if you are using code from the example above.
-
-
-
-## CasePaths command
-
-Generate CasePaths for all enums in your project using following command
-
-```bash
-spmgen casepaths "<path_to_sources>" \
-  --indentor " " \
-  --indentation-width 2
-```
-
-> **Todo:** Support configuration file with exclude paths and typename-based excludes.

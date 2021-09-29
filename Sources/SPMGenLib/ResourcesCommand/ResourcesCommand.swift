@@ -1,7 +1,7 @@
 import ArgumentParser
 import Files
 import Foundation
-import SPMResources
+import PackageResources
 
 // MARK: - Command
 extension SPMGen {
@@ -18,7 +18,7 @@ extension SPMGen {
     @Option(help: "Indentation width")
     public var indentationWidth: UInt = 2
 
-    @Flag(help: "Disables @_exported import for SPMResources")
+    @Flag(help: "Disables @_exported import for PackageResources")
     public var disableExports = false
 
     func run() throws {
@@ -71,7 +71,7 @@ func render(
     // This file is generated. Do not edit!
     //
 
-    \(exportEnabled ? "@_exported " : "")import SPMResources
+    \(exportEnabled ? "@_exported " : "")import PackageResources
 
     extension Bundle {
       public static var resources: Bundle { .module }

@@ -1,5 +1,5 @@
 import Foundation
-import SPMResources
+import PackageResources
 
 typealias RenderableResource = BundleResource & NamedType & GeneratorDeclarationProvider
 

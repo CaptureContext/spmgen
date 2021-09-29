@@ -10,26 +10,21 @@ let package = Package(
       targets: [
         "SPMGen"
       ]
-    ),
-    .library(
-      name: "SPMGenLib",
-      targets: [
-        "SPMGenLib"
-      ]
-    ),
-    .library(
-      name: "SPMResources",
-      targets: [
-        "SPMResources"
-      ]
-    ),
+    )
   ],
   dependencies: [
     .package(
+      name: "swift-package-resources",
+      url: "https://github.com/capturecontext/swift-package-resources.git",
+      .upToNextMajor(from: "1.0.0")
+    ),
+    .package(
+      name: "swift-argument-parser",
       url: "https://github.com/apple/swift-argument-parser.git",
       from: "1.0.1"
     ),
     .package(
+      name: "Files",
       url: "https://github.com/JohnSundell/Files.git",
       from: "4.0.0"
     ),
@@ -44,7 +39,10 @@ let package = Package(
     .target(
       name: "SPMGenLib",
       dependencies: [
-        .target(name: "SPMResources"),
+        .product(
+          name: "PackageResources",
+          package: "swift-package-resources"
+        ),
         .product(
           name: "ArgumentParser",
           package: "swift-argument-parser"
@@ -59,9 +57,11 @@ let package = Package(
       name: "SPMGenLibTests",
       dependencies: [
         .target(name: "SPMGenLib"),
-        .target(name: "SPMResources"),
+        .product(
+          name: "PackageResources",
+          package: "swift-package-resources"
+        ),
       ]
-    ),
-    .target(name: "SPMResources"),
+    )
   ]
 )

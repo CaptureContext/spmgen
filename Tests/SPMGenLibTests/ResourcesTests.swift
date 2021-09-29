@@ -1,4 +1,4 @@
-import SPMResources
+import PackageResources
 import XCTest
 
 @testable import SPMGenLib
