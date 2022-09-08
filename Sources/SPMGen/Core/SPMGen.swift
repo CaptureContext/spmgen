@@ -1,10 +1,11 @@
 import ArgumentParser
-import Files
 import Foundation
 
 // MARK: - Command
 
 public struct SPMGen: ParsableCommand {
+  public static var _commandName: String = "spmgen"
+
   public static let configuration = CommandConfiguration(
     subcommands: [Resources.self]
   )

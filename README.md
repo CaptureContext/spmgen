@@ -21,7 +21,7 @@ make install
 
 ## Resources command
 
-SPMGen provides static resource factories for various resource types.
+spmgen provides static resource factories for various resource types.
 
 Supported resources:
 
@@ -34,7 +34,16 @@ Supported resources:
 | StoryboardResource | `.storyboard`     | not used    |
 | SCNSceneResource   | `.scnassets/.scn` | true        |
 
+Todos:
+
+- [ ] Configuration file support
+- [ ] Generation templates
+- [ ] Localized strings support
+- [ ] Resources validation
+
 ### Integration
+
+> You can try SwiftPM Plugin but it's still experimental, so here is the recommended way
 
 Add [PackageResources](https://github.com/capturecontext/swift-package-resources) dependency to your package
 
@@ -42,7 +51,7 @@ Add [PackageResources](https://github.com/capturecontext/swift-package-resources
 .package(
   name: "swift-package-resources",
   url: "https://github.com/capturecontext/swift-package-resources.git", 
-  .upToNextMajor(from: "1.0.0")
+  .upToNextMajor(from: "2.0.0")
 )
 ```
 
@@ -55,11 +64,11 @@ Sources
       <#Assets#>
 ```
 
-Specify resource processing and add SPMResources dependency to your target
+Specify resource processing and add PackageResources dependency to your target
 
 ```swift
 .target(
-  name: "Resources",
+  name: "MyTarget",
   dependencies: [
     .product(
       name: "PackageResources",
@@ -67,7 +76,7 @@ Specify resource processing and add SPMResources dependency to your target
     )
   ],
   resources: [
-    .process("Resources")
+    <#Declare resources#>
   ]
 )
 ```
@@ -75,24 +84,14 @@ Specify resource processing and add SPMResources dependency to your target
 Add a script to your `Run Script` target build phases
 
 ```bash
-spmgen resources "$SRCROOT/Sources/Resources/Resources" \
+spmgen resources "$SRCROOT/Sources/MyTarget/Resources" \
   --output "$SRCROOT/Sources/Resources/Resources.generated.swift" \
   --indentor " " \
   --indentation-width 2
-
-# You can also add `--disable-exports` flag to disable `@_exported` attribute
-# for `import PackageResources` declaration in generated file
-```
-
-Add `<#Project#>Resources` target as a dependency to other targets
-
-```swift
-.target(
-  name: "<#Project#>Module",
-  dependencies: [
-    .target(name: "Resources")
-  ]
-)
+  
+# You can replace "$SRCROOT/Sources/MyTarget/Resources"
+# with your own path to resources
+# You can add other targets and just remember to add a script
 ```
 
 ### Usage

@@ -1,66 +1,71 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 
 import PackageDescription
 
 let package = Package(
   name: "spmgen",
+  platforms: [
+    .macOS(.v11)
+  ],
   products: [
-    .executable(
-      name: "spmgen",
-      targets: [
-        "SPMGen"
-      ]
+    .plugin(
+      name: "spmgen-plugin",
+      targets: ["spmgen-plugin"]
+    ),
+    .library(
+      name: "SPMGenClient",
+      targets: ["SPMGenClient"]
     )
   ],
   dependencies: [
     .package(
-      name: "swift-package-resources",
       url: "https://github.com/capturecontext/swift-package-resources.git",
-      .upToNextMajor(from: "1.0.0")
+      .upToNextMajor(from: "2.0.0")
     ),
     .package(
-      name: "swift-argument-parser",
       url: "https://github.com/apple/swift-argument-parser.git",
-      from: "1.0.1"
+      .upToNextMajor(from: "1.0.1")
     ),
     .package(
-      name: "Files",
-      url: "https://github.com/JohnSundell/Files.git",
-      from: "4.0.0"
+      url: "https://github.com/capturecontext/swift-prelude.git",
+      .upToNextMinor(from: "0.0.1")
     ),
   ],
   targets: [
-    .target(
-      name: "SPMGen",
+    .plugin(
+      name: "spmgen-plugin",
+      capability: .buildTool(),
       dependencies: [
-        .target(name: "SPMGenLib")
+        .target(name: "SPMGenClient")
       ]
     ),
-    .target(
-      name: "SPMGenLib",
+    .executableTarget(
+      name: "spmgen",
       dependencies: [
-        .product(
-          name: "PackageResources",
-          package: "swift-package-resources"
-        ),
+        .target(name: "SPMGenClient"),
         .product(
           name: "ArgumentParser",
           package: "swift-argument-parser"
         ),
+      ]
+    ),
+    .target(
+      name: "SPMGenClient",
+      dependencies: [
         .product(
-          name: "Files",
-          package: "Files"
+          name: "PackageResourcesCore",
+          package: "swift-package-resources"
         ),
+        .product(
+          name: "Prelude",
+          package: "swift-prelude"
+        )
       ]
     ),
     .testTarget(
-      name: "SPMGenLibTests",
+      name: "SPMGenClientTests",
       dependencies: [
-        .target(name: "SPMGenLib"),
-        .product(
-          name: "PackageResources",
-          package: "swift-package-resources"
-        ),
+        .target(name: "SPMGenClient")
       ]
     )
   ]
