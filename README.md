@@ -41,7 +41,7 @@ Todos:
 - [ ] Localized strings support
 - [ ] Resources validation
 
-### Integration
+## Integration
 
 > You can try SwiftPM Plugin but it's still experimental, so here is the recommended way
 
@@ -94,7 +94,9 @@ spmgen resources "$SRCROOT/Sources/MyTarget/Resources" \
 # You can add other targets and just remember to add a script
 ```
 
-### Usage
+<p align=center><b>Another integration example can be found <a href="https://github.com/capturecontext/basic-ios-template">here<b/></p>
+
+## Usage
 
 Import your `<#Project#>Resources` package and initialize objects using `.resource()` static factory
 
