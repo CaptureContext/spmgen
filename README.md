@@ -1,4 +1,4 @@
-# SPMGen
+# spmgen
 
 Code generator for Swift.
 
