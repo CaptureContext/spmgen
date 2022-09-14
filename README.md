@@ -37,13 +37,12 @@ Supported resources:
 
 Todos:
 
+- [ ] Localized strings support
 - [ ] Configuration file support
-- [ ] Multiimport support
 - [ ] Excludes support
 - [ ] Filesystem expressions support
-- [ ] Generation templates
-- [ ] Localized strings support
 - [ ] Resources validation
+- [ ] Rich example
 
 ## Integration
 
