@@ -4,7 +4,8 @@ import Foundation
 // MARK: - Command
 
 public struct App: ParsableCommand {
-  public static var _commandName: String = "spmgen"
+  public static let _commandName: String = "spmgen"
+  public static let _version = "2.1.1"
 
   public static let configuration = CommandConfiguration(
     subcommands: [Resources.self]
@@ -17,9 +18,9 @@ public struct App: ParsableCommand {
 
   public func run() throws {
     if version {
-      print("2.1.0")
+      print(Self._version)
     } else {
-      throw _Error("No command found. Run --help to explore available commands.")
+      throw CleanExit.helpRequest(self)
     }
   }
 }

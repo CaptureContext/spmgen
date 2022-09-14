@@ -47,13 +47,25 @@ extension SPMGenClient.Operations.ProcessResources.ToFile {
       Result {
         let processedResources = try render.call(input).get()
         let outputFile = try File(path: output, create: true)
+
         let disclaimer = """
         //
         // \(outputFile.name)
         // This file is generated. Do not edit!
         //
         """
-        try outputFile.write(disclaimer + "\n\n" + processedResources)
+
+        let imports = """
+        import PackageResourcesCore
+        """
+
+        let output = [
+          disclaimer,
+          imports,
+          processedResources
+        ].joined(separator: "\n\n")
+
+        try outputFile.write(output)
       }
     }
   }
