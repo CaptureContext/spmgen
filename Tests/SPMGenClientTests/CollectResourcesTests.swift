@@ -2,7 +2,7 @@ import XCTest
 @testable import SPMGenClient
 
 final class CollectResourcesTests: XCTestCase {
-  func testExample() throws {
+  func testMain() throws {
     let actual = try SPMGenClient.Operations.CollectResources.standard(
       atPath: "/Users/maximkrouk/Developer/CaptureContext/Apps/spmgen/Example/Example"
     ).get()

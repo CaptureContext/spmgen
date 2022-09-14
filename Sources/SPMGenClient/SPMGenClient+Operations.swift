@@ -22,6 +22,23 @@ extension SPMGenClient.Operations {
     }
   }
 
+  public struct CamelCase: Function {
+    public typealias Input = String
+    public typealias Output = String
+
+    public enum Policy {
+      case uppercaseFirst
+      case lowercaseFirst
+      case keepFirst
+    }
+
+    public init(_ call: @escaping Signature) {
+      self.call = call
+    }
+
+    public var call: Signature
+  }
+
   public struct CollectResources: Function {
     public typealias Input = String
     public typealias Output = Result<[SPMGenResource], Error>

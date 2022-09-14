@@ -1,1 +1,1 @@
-SPMGen.main()
+App.main()

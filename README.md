@@ -13,7 +13,8 @@ git clone https://github.com/capturecontext/spmgen.git
 # Navigate to repo directory
 cd spmgen
 
-# Build and install using Make
+# Build and install globally using Make
+# See Makefile for more options
 make install
 
 # You can also delete spmgen using `make uninstall` command
@@ -37,6 +38,9 @@ Supported resources:
 Todos:
 
 - [ ] Configuration file support
+- [ ] Multiimport support
+- [ ] Excludes support
+- [ ] Filesystem expressions support
 - [ ] Generation templates
 - [ ] Localized strings support
 - [ ] Resources validation
@@ -51,7 +55,7 @@ Add [PackageResources](https://github.com/capturecontext/swift-package-resources
 .package(
   name: "swift-package-resources",
   url: "https://github.com/capturecontext/swift-package-resources.git", 
-  .upToNextMajor(from: "2.0.0")
+  .upToNextMajor(from: "2.1.0")
 )
 ```
 
@@ -87,7 +91,7 @@ Add a script to your `Run Script` target build phases
 spmgen resources "$SRCROOT/Sources/MyTarget/Resources" \
   --output "$SRCROOT/Sources/Resources/Resources.generated.swift" \
   --indentor " " \
-  --indentation-width 2
+  --tab-size 2
   
 # You can replace "$SRCROOT/Sources/MyTarget/Resources"
 # with your own path to resources

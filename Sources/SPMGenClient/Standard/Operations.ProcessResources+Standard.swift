@@ -7,7 +7,8 @@ extension SPMGenClient.Operations.ProcessResources {
 
   public static func standard(
     tabSize: Int,
-    indentor: String
+    indentor: String,
+    acronyms: Set<String>
   ) -> Self {
     let indent: SPMGenClient.Operations.IndentUp = .standard(
       tabSize: tabSize,
@@ -18,7 +19,8 @@ extension SPMGenClient.Operations.ProcessResources {
       render: .standard(
         render: .standard(
           renderAccessor: .standard(
-            indent: indent
+            indent: indent,
+            camelCase: .standard(.lowercaseFirst, acronyms: acronyms)
           ),
           indent: indent
         )

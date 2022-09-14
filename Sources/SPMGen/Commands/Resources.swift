@@ -2,7 +2,7 @@ import ArgumentParser
 import SPMGenClient
 import Foundation
 
-extension SPMGen {
+extension App {
   public struct Resources: ParsableCommand {
     public static var _commandName: String = "resources"
 
@@ -32,13 +32,17 @@ extension SPMGen {
     @Option(help: "Tab size")
     public var tabSize: Int = 2
 
+    @Option(help: "Acronyms to be treated as a single character in camelCasing")
+    public var acronyms: [String] = .init(SPMGenClient.Operations.CamelCase.standardAcronyms)
+
     public func run() throws {
       let outputPath = output ?? input.appending("/Resources.generated.swift")
 
       let client = SPMGenClient(
         processResources: .standard(
           tabSize: tabSize,
-          indentor: indentor
+          indentor: indentor,
+          acronyms: Set(acronyms)
         )
       )
 

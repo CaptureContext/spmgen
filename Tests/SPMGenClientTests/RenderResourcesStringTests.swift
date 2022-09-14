@@ -2,7 +2,7 @@ import XCTest
 @testable import SPMGenClient
 
 final class RenderResourcesStringTests: XCTestCase {
-  func testExample() throws {
+  func testMain() throws {
     let resources: [SPMGenResource] = [
       .color(.init(name: "AccentColor")),
       .image(.init(name: "some-image")),

@@ -2,7 +2,7 @@ import XCTest
 @testable import SPMGenClient
 
 final class ProcessResourcesStringTests: XCTestCase {
-  func testExample() throws {
+  func testMain() throws {
     let actual = try SPMGenClient.Operations.ProcessResources.standard()(
       atPath: "/Users/maximkrouk/Developer/CaptureContext/Apps/spmgen/Example/Example"
     ).get()!
@@ -23,7 +23,7 @@ final class ProcessResourcesStringTests: XCTestCase {
         return .init(name: "Roboto-Bold", bundle: .module)
       }
 
-      public static var sFProDisplayRegular: FontResource {
+      public static var sfProDisplayRegular: FontResource {
         return .init(name: "SF-Pro-Display-Regular", bundle: .module)
       }
     }
