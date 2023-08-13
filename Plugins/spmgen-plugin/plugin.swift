@@ -8,16 +8,30 @@ struct SPMGenPlugin: BuildToolPlugin {
     context: PluginContext,
     target: Target
   ) async throws -> [Command] {
+    guard let target = target as? SourceModuleTarget else { return [] }
+
+    let outputDirectoryPath = context.pluginWorkDirectory
+        .appending(subpath: target.name)
+
+    try FileManager.default.createDirectory(
+      atPath: outputDirectoryPath.string,
+      withIntermediateDirectories: true
+    )
+
+    let outputPath = outputDirectoryPath
+      .appending(subpath: "Resources.generated.swift")
+
     return [
-      .prebuildCommand(
-        displayName: "Run spmgen-plugin",
+      .buildCommand(
+        displayName: "Run spmgen-plugin for \(target.name)",
         executable: try context.tool(named: "spmgen").path,
         arguments: [
-          "resources",
-          "--input", target.directory.string,
-          "--output", context.pluginWorkDirectory.appending("\(target.name)_Resources.generated.swift")
+          "resources", target.directory.string,
+          "--output", outputPath
         ],
-        outputFilesDirectory: context.pluginWorkDirectory
+        outputFiles: [
+          outputPath
+        ]
       )
     ]
   }

@@ -54,9 +54,9 @@ extension SPMGenClient.Operations {
     }
   }
 
-  public struct RenderAccessorString: Function {
+  public struct RenderResourceAccessor: Function {
     public typealias Input = SPMGenResource
-    public typealias Output = Result<String, Error>
+    public typealias Output = Result<RenderedAccessor, Error>
 
     public init(_ call: @escaping Signature) {
       self.call = call
@@ -69,7 +69,7 @@ extension SPMGenClient.Operations {
     }
   }
 
-  public struct RenderAccessorStrings: Function {
+  public struct RenderExtensions: Function {
     public typealias Input = [SPMGenResource]
     public typealias Output = Result<String, Error>
 

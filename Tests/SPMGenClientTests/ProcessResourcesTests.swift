@@ -4,51 +4,54 @@ import XCTest
 final class ProcessResourcesStringTests: XCTestCase {
   func testMain() throws {
     let actual = try SPMGenClient.Operations.ProcessResources.standard()(
-      atPath: "/Users/maximkrouk/Developer/CaptureContext/Apps/spmgen/Example/Example"
+      atPath: testResourcesDirectoryPath
     ).get()!
 
     let expected = """
-    extension ColorResource {
-      public static var accentColor: ColorResource {
-        return .init(name: "AccentColor", bundle: .module)
-      }
-
-      public static var srgbWhite: ColorResource {
-        return .init(name: "srgb-white", bundle: .module)
+    extension PackageResources.Color {
+      public static var colorExample: Self {
+        return .init(name: "ColorExample", bundle: .module)
       }
     }
 
-    extension FontResource {
-      public static var robotoBold: FontResource {
-        return .init(name: "Roboto-Bold", bundle: .module)
+    extension Array where Element == PackageResources.Font {
+      public static var _spmgen: Self {[
+        .arimoBold,
+        .montserratBlack,
+      ]}
+    }
+
+    extension PackageResources.Font {
+      public static var arimoBold: Self {
+        return .init(name: "Arimo-Bold")
       }
 
-      public static var sfProDisplayRegular: FontResource {
-        return .init(name: "SF-Pro-Display-Regular", bundle: .module)
+      public static var montserratBlack: Self {
+        return .init(name: "Montserrat-Black")
       }
     }
 
-    extension ImageResource {
-      public static var someImage: ImageResource {
-        return .init(name: "some-image", bundle: .module)
+    extension PackageResources.Image {
+      public static var imageExample: Self {
+        return .init(name: "ImageExample", bundle: .module)
       }
     }
 
-    extension NibResource {
-      public static var view: NibResource {
-        return .init(name: "View", bundle: .module)
+    extension PackageResources.Nib {
+      public static var main: Self {
+        return .init(name: "Main", bundle: .module)
       }
     }
 
-    extension SCNSceneResource {
-      public static var defaultScene: SCNSceneResource {
+    extension PackageResources.SCNScene {
+      public static var defaultScene: Self {
         return .init(name: "DefaultScene", catalog: "SCNCatalog")
       }
     }
 
-    extension StoryboardResource {
-      public static var storyboard: StoryboardResource {
-        return .init(name: "Storyboard", bundle: .module)
+    extension PackageResources.Storyboard {
+      public static var main: Self {
+        return .init(name: "Main", bundle: .module)
       }
     }
     """

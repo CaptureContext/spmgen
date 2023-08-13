@@ -15,13 +15,19 @@ extension SPMGenClient.Operations.ProcessResources {
       indentor: indentor
     )
 
+    let camelCase: SPMGenClient.Operations.CamelCase = .standard(
+      .lowercaseFirst,
+      acronyms: acronyms
+    )
+
     return .standard(
       render: .standard(
         render: .standard(
           renderAccessor: .standard(
             indent: indent,
-            camelCase: .standard(.lowercaseFirst, acronyms: acronyms)
+            camelCase: camelCase
           ),
+          camelCase: camelCase,
           indent: indent
         )
       )
@@ -32,7 +38,7 @@ extension SPMGenClient.Operations.ProcessResources {
 extension SPMGenClient.Operations.ProcessResources.ToString {
   public static func standard(
     collect: SPMGenClient.Operations.CollectResources = .standard,
-    render: SPMGenClient.Operations.RenderAccessorStrings = .standard()
+    render: SPMGenClient.Operations.RenderExtensions = .standard()
   ) -> Self {
     .init { path in
       collect.apply(render)(path)
@@ -56,6 +62,7 @@ extension SPMGenClient.Operations.ProcessResources.ToFile {
         """
 
         let imports = """
+        import Foundation
         import PackageResourcesCore
         """
 

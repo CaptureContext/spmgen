@@ -5,10 +5,10 @@ import Foundation
 
 public struct App: ParsableCommand {
   public static let _commandName: String = "spmgen"
-  public static let _version = "2.1.1"
+  public static let _version = "3.0.0"
 
   public static let configuration = CommandConfiguration(
-    subcommands: [Resources.self]
+    subcommands: [Resources.self, Version.self]
   )
   
   @Flag(help: "Display version of the app")

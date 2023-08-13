@@ -42,7 +42,6 @@ Todos:
 - [ ] Excludes support
 - [ ] Filesystem expressions support
 - [ ] Resources validation
-- [ ] Rich example
 
 ## Integration
 
@@ -54,7 +53,7 @@ Add [PackageResources](https://github.com/capturecontext/swift-package-resources
 .package(
   name: "swift-package-resources",
   url: "https://github.com/capturecontext/swift-package-resources.git", 
-  .upToNextMajor(from: "2.0.0")
+  .upToNextMajor(from: "3.0.0")
 )
 ```
 

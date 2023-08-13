@@ -10,6 +10,7 @@ extension SPMGenClient.Operations.CamelCase {
     "id", "Id", "ID",
     "uuid", "Uuid", "UUID",
     "ulid", "Ulid", "ULID",
+    "usid", "Usid", "USID",
     "idfa", "Idfa", "IDFA",
     "json", "Json", "JSON",
     "xml", "Xml", "XML",

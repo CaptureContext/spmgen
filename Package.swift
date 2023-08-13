@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -20,7 +20,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/capturecontext/swift-package-resources.git",
-      .upToNextMajor(from: "2.0.0")
+      .upToNextMajor(from: "3.0.0")
     ),
     .package(
       url: "https://github.com/apple/swift-argument-parser.git",
@@ -28,7 +28,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/capturecontext/swift-prelude.git",
-      .upToNextMinor(from: "0.0.1")
+      branch: "develop"
     ),
   ],
   targets: [
@@ -36,7 +36,7 @@ let package = Package(
       name: "spmgen-plugin",
       capability: .buildTool(),
       dependencies: [
-        .target(name: "SPMGenClient")
+        .target(name: "spmgen")
       ]
     ),
     .executableTarget(
@@ -66,6 +66,9 @@ let package = Package(
       name: "SPMGenClientTests",
       dependencies: [
         .target(name: "SPMGenClient")
+      ],
+      exclude: [
+        "_Resources"
       ]
     )
   ]

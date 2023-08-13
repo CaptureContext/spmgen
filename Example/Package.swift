@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -10,35 +10,57 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "SPMGenExampleApp",
+      name: "AppFeature",
       targets: [
-        "SPMGenExampleApp"
+        "AppFeature"
       ]
     )
   ],
   dependencies: [
-    .package(url: "https://github.com/edudo-inc/spmgen.git", .branch("main"))
+    .package(path: "../"),
+    .package(
+      url: "https://github.com/capturecontext/swift-foundation-extensions.git",
+      from: "0.2.0"
+    ),
+    .package(
+      url: "https://github.com/capturecontext/swift-package-resources.git",
+      from: "3.0.0"
+    )
   ],
   targets: [
     .target(
-      name: "SPMGenExampleApp",
+      name: "AppExtensions",
       dependencies: [
-        .target(name: "SPMGenExampleResources")
+        .product(
+          name: "FoundationExtensions",
+          package: "swift-foundation-extensions"
+        ),
       ]
     ),
     .target(
-      name: "SPMGenExampleResources",
+      name: "AppFeature",
       dependencies: [
-        .target(name: "SPMGenExampleCore"),
+        .target(name: "AppResources")
+      ]
+    ),
+    .target(
+      name: "AppResources",
+      dependencies: [
+        .target(name: "AppExtensions"),
         .product(
-          name: "SPMResources",
-          package: "spmgen"
+          name: "PackageResources",
+          package: "swift-package-resources"
         ),
       ],
       resources: [
         .process("Resources")
+      ],
+      plugins: [
+        .plugin(
+          name: "spmgen-plugin",
+          package: "spmgen"
+        )
       ]
     ),
-    .target(name: "SPMGenExampleCore"),
   ]
 )

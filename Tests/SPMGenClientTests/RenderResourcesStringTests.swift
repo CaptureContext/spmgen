@@ -12,43 +12,49 @@ final class RenderResourcesStringTests: XCTestCase {
       .storyboard(.init(name: "Storyboard")),
     ]
 
-    let actual = try SPMGenClient.Operations.RenderAccessorStrings.standard().call(
+    let actual = try SPMGenClient.Operations.RenderExtensions.standard().call(
       resources
     ).get()
 
     let expected = """
-    extension ColorResource {
-      public static var accentColor: ColorResource {
+    extension PackageResources.Color {
+      public static var accentColor: Self {
         return .init(name: "AccentColor", bundle: .module)
       }
     }
 
-    extension FontResource {
-      public static var robotoBold: FontResource {
-        return .init(name: "Roboto-Bold", bundle: .module)
+    extension Array where Element == PackageResources.Font {
+      public static var _spmgen: Self {[
+        .robotoBold,
+      ]}
+    }
+
+    extension PackageResources.Font {
+      public static var robotoBold: Self {
+        return .init(name: "Roboto-Bold")
       }
     }
 
-    extension ImageResource {
-      public static var someImage: ImageResource {
+    extension PackageResources.Image {
+      public static var someImage: Self {
         return .init(name: "some-image", bundle: .module)
       }
     }
 
-    extension NibResource {
-      public static var view: NibResource {
+    extension PackageResources.Nib {
+      public static var view: Self {
         return .init(name: "View", bundle: .module)
       }
     }
 
-    extension SCNSceneResource {
-      public static var defaultScene: SCNSceneResource {
+    extension PackageResources.SCNScene {
+      public static var defaultScene: Self {
         return .init(name: "DefaultScene", catalog: "SCNCatalog")
       }
     }
 
-    extension StoryboardResource {
-      public static var storyboard: StoryboardResource {
+    extension PackageResources.Storyboard {
+      public static var storyboard: Self {
         return .init(name: "Storyboard", bundle: .module)
       }
     }
