@@ -40,8 +40,9 @@ extension SPMGenClient.Operations.ProcessResources.ToString {
     collect: SPMGenClient.Operations.CollectResources = .standard,
     render: SPMGenClient.Operations.RenderExtensions = .standard()
   ) -> Self {
-    .init { path in
-      collect.apply(render)(path)
+    return .init { path in
+      collect(atPath: path)
+        .flatMap(render.callAsFunction)
     }
   }
 }
@@ -49,7 +50,7 @@ extension SPMGenClient.Operations.ProcessResources.ToFile {
   public static func standard(
     render: SPMGenClient.Operations.ProcessResources.ToString = .standard()
   ) -> Self {
-    .init { input, output in
+    return .init { input, output in
       Result {
         let processedResources = try render.call(input).get()
         let outputFile = try File(path: output, create: true)
@@ -73,26 +74,6 @@ extension SPMGenClient.Operations.ProcessResources.ToFile {
         ].joined(separator: "\n\n")
 
         try outputFile.write(output)
-      }
-    }
-  }
-}
-
-extension Function {
-  fileprivate func apply<
-    F: Function,
-    BValue,
-    CValue
-  >(
-    _ f: F
-  ) -> Func<A, F.B> where
-    B == Result<BValue, Error>,
-    F.A == BValue,
-    F.B == Result<CValue, Error>
-  {
-    return .init { a in
-      Result {
-        try f(call(a).get()).get()
       }
     }
   }

@@ -63,8 +63,8 @@ extension SPMGenClient.Operations.RenderResourceAccessor {
 
 fileprivate func accessor(
   for resource: SPMGenColorResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes
@@ -77,8 +77,8 @@ fileprivate func accessor(
 
 fileprivate func accessor(
   for resource: SPMGenImageResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes
@@ -91,8 +91,8 @@ fileprivate func accessor(
 
 fileprivate func accessor(
   for resource: SPMGenFontResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes
@@ -105,8 +105,8 @@ fileprivate func accessor(
 
 fileprivate func accessor(
   for resource: SPMGenNibResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes
@@ -119,8 +119,8 @@ fileprivate func accessor(
 
 fileprivate func accessor(
   for resource: SPMGenSCNSceneResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes
@@ -134,8 +134,8 @@ fileprivate func accessor(
 
 fileprivate func accessor(
   for resource: SPMGenStoryboardResource,
-  indent: SPMGenClient.Operations.IndentUp.Signature,
-  camelCase: SPMGenClient.Operations.CamelCase.Signature
+  indent: SPMGenClient.Operations.IndentUp.SyncSignature,
+  camelCase: SPMGenClient.Operations.CamelCase.SyncSignature
 ) -> String {
   let accessorName = camelCase(resource.name)
   let resourceName = resource.name.escapedUsingQuotes

@@ -28,7 +28,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/capturecontext/swift-prelude.git",
-      branch: "develop"
+      .upToNextMinor(from: "0.2.0")
     ),
   ],
   targets: [
